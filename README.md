@@ -1,2 +1,3 @@
 # psychtweets
-Analyzing user tweets to predict their personality type.
+
+By: Suchit Bhayani and Vishok Lakshmankumar.
