@@ -1,3 +1,3 @@
 # psychtweets
 
-By: Suchit Bhayani and Steven Nguyen.
+By: Suchit Bhayani, Vishok Lakshmankumar, and Steven Nguyen.
