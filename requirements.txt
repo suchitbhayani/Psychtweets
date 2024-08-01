@@ -1,0 +1,12 @@
+# eda and cleaning
+pandas==2.1.4
+numpy==1.26.4
+seaborn==0.12.2
+matplotlib==3.8.0
+scikit-learn==1.2.2
+googletrans==4.0.0rc1
+emoji==2.12.1
+
+# model building and training
+transformers==4.41.2
+torch==2.3.0
