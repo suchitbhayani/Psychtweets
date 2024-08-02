@@ -25,10 +25,9 @@ class MBTIPredictor(nn.Module):
 
 
 def clean_text(tweets):
-    
     # remove emojis
     tweets = emoji.replace_emoji(tweets, replace='')
-    
+
     # remove links 
     tweets = re.sub(r'http\S+|www\S+|https\S+', '', tweets, flags=re.MULTILINE)
     
@@ -52,31 +51,29 @@ model.eval()
 
 tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
 
-reverse_mapping = {
- 'enfj': 0,
- 'enfp': 1,
- 'entj': 2,
- 'entp': 3,
- 'esfj': 4,
- 'esfp': 5,
- 'estj': 6,
- 'estp': 7,
- 'infj': 8,
- 'infp': 9,
- 'intj': 10,
- 'intp': 11,
- 'isfj': 12,
- 'isfp': 13,
- 'istj': 14,
- 'istp': 15
- }
-label_mapping = {v: k.upper() for k, v in reverse_mapping.items()}
-
+label_mapping = {
+ '0': 'ENFJ',
+ '1': 'ENFP',
+ '2': 'ENTJ',
+ '3': 'ENTP',
+ '4': 'ESFJ',
+ '5': 'ESFP',
+ '6': 'ESTJ',
+ '7': 'ESTP',
+ '8': 'INFJ',
+ '9': 'INFP',
+ '10': 'INTJ',
+ '11': 'INTP',
+ '12': 'ISFJ',
+ '13': 'ISFP',
+ '14': 'ISTJ',
+ '15': 'ISTP'
+}
 
 def predict(tweets):
+    assertTrue(isinstance(tweets, str), "Input to function must be one string")
+
     clean_text = clean_text(tweets)
     tokenized = tokenizer(text=clean_text, truncation=True, padding=True)
     prediction_as_number = model(tokenized)
     return label_mapping[prediction_as_number]
-    
-
