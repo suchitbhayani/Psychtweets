@@ -73,7 +73,7 @@ label_mapping = {
 def predict(tweets):
     assertTrue(isinstance(tweets, str), "Input to function must be one string")
 
-    clean_text = clean_text(tweets)
-    tokenized = tokenizer(text=clean_text, truncation=True, padding=True)
+    cleaned_text = clean_text(tweets)
+    tokenized = tokenizer(text=cleaned_text, truncation=True, padding=True)
     prediction_as_number = model(tokenized)
     return label_mapping[prediction_as_number]
