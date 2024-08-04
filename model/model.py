@@ -78,5 +78,5 @@ def predict(tweets):
 
     cleaned_text = clean_text(tweets)
     tokenized = tokenizer(text=cleaned_text, truncation=True, padding=True, max_length=sequence_length)
-    prediction_as_number = model(tokenized)
-    return label_mapping[prediction_as_number]
+    prediction_tensor = model(tokenized)
+    return label_mapping[torch.argmax(prediction_tensor, dim=-1)]
