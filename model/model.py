@@ -24,29 +24,19 @@ class MBTIPredictor(nn.Module):
 
 
 def clean_text(tweets):
-    # remove emojis
     tweets = emoji.replace_emoji(tweets, replace='')
-
-    # remove links 
     tweets = re.sub(r'http\S+|www\S+|https\S+', '', tweets, flags=re.MULTILINE)
-    
-    # make lowercase
     tweets = tweets.lower()
-
-    # remove twitter handles
     tweets = re.sub(r'@\w+', '', tweets)
-
-    # remove extra whitespace
     tweets = re.sub(r'\s+', ' ', tweets).strip()
     
     return tweets
 
-
-
+# model/tokenizer creation parameters
 hidden_size = 64
 sequence_length = 512
 
-
+# creating model/tokenizer
 model = MBTIPredictor(hidden_size, sequence_length)
 state_dict = torch.load('../model_state.pth')
 model.load_state_dict(state_dict)
@@ -54,6 +44,7 @@ model.eval()
 
 tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
 
+# needed to make predictions
 label_mapping = {
  '0': 'ENFJ',
  '1': 'ENFP',
