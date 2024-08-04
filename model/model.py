@@ -4,6 +4,7 @@ from transformers import BertModel, BertTokenizerFast
 import re
 import emoji
 
+# model class
 class MBTIPredictor(nn.Module):
     def __init__(self, hidden_layer_size, sequence_length):
         super(MBTIPredictor, self).__init__()
@@ -22,7 +23,7 @@ class MBTIPredictor(nn.Module):
         return logits
     
 
-
+# function to clean text, make it ready to tokenize
 def clean_text(tweets):
     tweets = emoji.replace_emoji(tweets, replace='')
     tweets = re.sub(r'http\S+|www\S+|https\S+', '', tweets, flags=re.MULTILINE)
@@ -32,9 +33,11 @@ def clean_text(tweets):
     
     return tweets
 
+
 # model/tokenizer creation parameters
 hidden_size = 64
 sequence_length = 512
+
 
 # creating model/tokenizer
 model = MBTIPredictor(hidden_size, sequence_length)
@@ -43,6 +46,7 @@ model.load_state_dict(state_dict)
 model.eval()
 
 tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
+
 
 # needed to make predictions
 label_mapping = {
@@ -72,6 +76,8 @@ device = (
     else "cpu"
 )
 
+
+# function to make prediction from a given text
 def predict(tweets):
     assertTrue(isinstance(tweets, str), "Input to function must be one string")
 
