@@ -73,22 +73,10 @@ label_mapping = {
  '15': 'ISTP'
 }
 
-device = (
-    "cuda"
-    if torch.cuda.is_available()
-    else "mps"
-    if torch.backends.mps.is_available()
-    else "cpu"
-)
-
 def predict(tweets):
     assertTrue(isinstance(tweets, str), "Input to function must be one string")
 
     cleaned_text = clean_text(tweets)
     tokenized = tokenizer(text=cleaned_text, truncation=True, padding=True, max_length=sequence_length)
-
-    input_ids = tokenized['input_ids'].to(device)
-    attention_mask = tokenized['attention_mask'].to(device)
-
-    prediction_tensor = model(input_ids, attention_mask)
+    prediction_tensor = model(tokenized)
     return label_mapping[torch.argmax(prediction_tensor, dim=-1)]
