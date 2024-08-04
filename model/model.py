@@ -87,8 +87,11 @@ def predict(tweets):
     cleaned_text = clean_text(tweets)
     tokenized = tokenizer(text=cleaned_text, truncation=True, padding=True, max_length=sequence_length)
 
+    tokenized['input_ids'] = torch.tensor(tokenized['input_ids'])
+    tokenized['attention_mask'] = torch.tensor(tokenized['attention_mask'])
+
     input_ids = tokenized['input_ids'].to(device)
     attention_mask = tokenized['attention_mask'].to(device)
 
-    prediction_tensor = model(input_ids, attention_mask)
-    return label_mapping[torch.argmax(prediction_tensor, dim=-1)]
+    pred = model(input_ids, attention_mask)
+    return label_mapping[torch.argmax(pred, dim=-1)]
