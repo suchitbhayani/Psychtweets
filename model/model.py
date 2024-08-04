@@ -90,5 +90,7 @@ def predict(tweets):
     input_ids = tokenized['input_ids'].to(device)
     attention_mask = tokenized['attention_mask'].to(device)
 
-    pred = model(input_ids, attention_mask)
+    with torch.no_grad():
+        pred = model(input_ids, attention_mask)
+        
     return label_mapping[torch.argmax(pred, dim=-1)]
