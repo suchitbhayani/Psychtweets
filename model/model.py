@@ -10,8 +10,7 @@ class MBTIPredictor(nn.Module):
         self.bert = BertModel.from_pretrained('bert-base-uncased')
         self.rnn = nn.RNN(768, hidden_layer_size, batch_first=True)
         self.relu = nn.ReLU()
-        self.linear = nn.Linear(32768, 16)
-        # confused hidden_layer_size * sequence_length (= 32000) doesn't work instead of 32768
+        self.linear = nn.Linear(hidden_layer_size * sequence_length, 16)
 
     def forward(self, input_ids, attention_mask):
         outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
@@ -45,7 +44,7 @@ def clean_text(tweets):
 
 
 hidden_size = 64
-sequence_length = 500
+sequence_length = 512
 
 
 model = MBTIPredictor(hidden_size, sequence_length)
@@ -78,6 +77,6 @@ def predict(tweets):
     assertTrue(isinstance(tweets, str), "Input to function must be one string")
 
     cleaned_text = clean_text(tweets)
-    tokenized = tokenizer(text=cleaned_text, truncation=True, padding=True)
+    tokenized = tokenizer(text=cleaned_text, truncation=True, padding=True, max_length=sequence_length)
     prediction_as_number = model(tokenized)
     return label_mapping[prediction_as_number]
