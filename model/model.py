@@ -44,7 +44,11 @@ def clean_text(tweets):
 
 
 
-model = MBTIPredictor()
+hidden_size = 64
+sequence_length = 500
+
+
+model = MBTIPredictor(hidden_size, sequence_length)
 state_dict = torch.load('../model_state.pth')
 model.load_state_dict(state_dict)
 model.eval()
