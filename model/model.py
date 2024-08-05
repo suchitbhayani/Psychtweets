@@ -50,22 +50,22 @@ tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
 
 # needed to make predictions
 label_mapping = {
- '0': 'ENFJ',
- '1': 'ENFP',
- '2': 'ENTJ',
- '3': 'ENTP',
- '4': 'ESFJ',
- '5': 'ESFP',
- '6': 'ESTJ',
- '7': 'ESTP',
- '8': 'INFJ',
- '9': 'INFP',
- '10': 'INTJ',
- '11': 'INTP',
- '12': 'ISFJ',
- '13': 'ISFP',
- '14': 'ISTJ',
- '15': 'ISTP'
+ 0: 'ENFJ',
+ 1: 'ENFP',
+ 2: 'ENTJ',
+ 3: 'ENTP',
+ 4: 'ESFJ',
+ 5: 'ESFP',
+ 6: 'ESTJ',
+ 7: 'ESTP',
+ 8: 'INFJ',
+ 9: 'INFP',
+ 10: 'INTJ',
+ 11: 'INTP',
+ 12: 'ISFJ',
+ 13: 'ISFP',
+ 14: 'ISTJ',
+ 15: 'ISTP'
 }
 
 device = (
@@ -84,11 +84,8 @@ def predict(tweets):
     cleaned_text = clean_text(tweets)
     tokenized = tokenizer(text=cleaned_text, truncation=True, padding=True, max_length=sequence_length)
 
-    tokenized['input_ids'] = torch.tensor(tokenized['input_ids'])
-    tokenized['attention_mask'] = torch.tensor(tokenized['attention_mask'])
-
-    input_ids = tokenized['input_ids'].to(device)
-    attention_mask = tokenized['attention_mask'].to(device)
+    input_ids = torch.tensor(tokenized['input_ids']).to(device)
+    attention_mask = torch.tensor(tokenized['attention_mask']).to(device)
 
     with torch.no_grad():
         pred = model(input_ids, attention_mask)
