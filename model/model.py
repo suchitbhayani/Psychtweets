@@ -41,7 +41,7 @@ sequence_length = 512
 
 # creating model/tokenizer
 model = MBTIPredictor(hidden_size, sequence_length)
-state_dict = torch.load('../model_state.pth')
+state_dict = torch.load('./model_state.pth')
 model.load_state_dict(state_dict)
 model.eval()
 
