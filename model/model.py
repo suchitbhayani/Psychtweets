@@ -40,8 +40,16 @@ sequence_length = 512
 
 
 # creating model/tokenizer
+device = (
+    "cuda"
+    if torch.cuda.is_available()
+    else "mps"
+    if torch.backends.mps.is_available()
+    else "cpu"
+)
+
 model = MBTIPredictor(hidden_size, sequence_length)
-state_dict = torch.load('./model_state.pth')
+state_dict = torch.load('./model_state.pth', map_location=torch.device('cpu')) # if device is cpu
 model.load_state_dict(state_dict)
 model.eval()
 
@@ -67,14 +75,6 @@ label_mapping = {
  14: 'ISTJ',
  15: 'ISTP'
 }
-
-device = (
-    "cuda"
-    if torch.cuda.is_available()
-    else "mps"
-    if torch.backends.mps.is_available()
-    else "cpu"
-)
 
 
 # function to make prediction from a given text
