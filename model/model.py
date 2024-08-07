@@ -51,6 +51,7 @@ device = (
 model = MBTIPredictor(hidden_size, sequence_length)
 state_dict = torch.load('./model_state.pth', map_location=torch.device('cpu')) # if device is cpu
 model.load_state_dict(state_dict)
+model.to(device)
 model.eval()
 
 tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
@@ -79,13 +80,12 @@ label_mapping = {
 
 # function to make prediction from a given text
 def predict(tweets):
-    assertTrue(isinstance(tweets, str), "Input to function must be one string")
 
     cleaned_text = clean_text(tweets)
-    tokenized = tokenizer(text=cleaned_text, truncation=True, padding=True, max_length=sequence_length)
+    tokenized = tokenizer(text=cleaned_text, truncation=True, padding=True, max_length=sequence_length, return_tensors='pt')
 
-    input_ids = torch.tensor(tokenized['input_ids']).to(device)
-    attention_mask = torch.tensor(tokenized['attention_mask']).to(device)
+    input_ids = tokenized['input_ids'].to(device)
+    attention_mask = tokenized['attention_mask'].to(device)
 
     with torch.no_grad():
         pred = model(input_ids, attention_mask)
