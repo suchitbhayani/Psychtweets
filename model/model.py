@@ -90,4 +90,5 @@ def predict(tweets):
     with torch.no_grad():
         pred = model(input_ids, attention_mask)
         
-    return label_mapping[torch.argmax(pred, dim=-1)]
+    label_index = torch.argmax(pred, dim=-1).item()
+    return label_mapping[label_index]
