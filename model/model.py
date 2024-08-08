@@ -49,18 +49,12 @@ device = (
 )
 
 model = MBTIPredictor(hidden_size, sequence_length)
-<<<<<<< HEAD
-state_dict = torch.load('./model_state.pth', map_location=torch.device('cpu')) # if device is cpu
-=======
 state_dict = torch.load('../model/model_state.pth', map_location = torch.device('cpu'))  # if device is cpu
->>>>>>> 8f5b376 (webscraper and predict work together.)
 model.load_state_dict(state_dict)
 model.to(device)
 model.eval()
 
 tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
-
-<<<<<<< HEAD
 
 # needed to make predictions
 label_mapping = {
@@ -80,51 +74,20 @@ label_mapping = {
  13: 'ISFP',
  14: 'ISTJ',
  15: 'ISTP'
-=======
-# needed to make predictions
-label_mapping = {
-    0: 'ENFJ',
-    1: 'ENFP',
-    2: 'ENTJ',
-    3: 'ENTP',
-    4: 'ESFJ',
-    5: 'ESFP',
-    6: 'ESTJ',
-    7: 'ESTP',
-    8: 'INFJ',
-    9: 'INFP',
-    10: 'INTJ',
-    11: 'INTP',
-    12: 'ISFJ',
-    13: 'ISFP',
-    14: 'ISTJ',
-    15: 'ISTP'
->>>>>>> 8f5b376 (webscraper and predict work together.)
 }
 
 
 # function to make prediction from a given text
 def predict(tweets):
-<<<<<<< HEAD
 
     cleaned_text = clean_text(tweets)
     tokenized = tokenizer(text=cleaned_text, truncation=True, padding=True, max_length=sequence_length, return_tensors='pt')
-=======
-    cleaned_text = clean_text(tweets)
-    tokenized = tokenizer(text = cleaned_text, truncation = True, padding = True,
-                          max_length = sequence_length, return_tensors = 'pt')
->>>>>>> 8f5b376 (webscraper and predict work together.)
 
     input_ids = tokenized['input_ids'].to(device)
     attention_mask = tokenized['attention_mask'].to(device)
 
     with torch.no_grad():
         pred = model(input_ids, attention_mask)
-<<<<<<< HEAD
         
     label_index = torch.argmax(pred, dim=-1).item()
-=======
-
-    label_index = torch.argmax(pred, dim = -1).item()
->>>>>>> 8f5b376 (webscraper and predict work together.)
     return label_mapping[label_index]
