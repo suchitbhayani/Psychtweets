@@ -6,19 +6,76 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<style>
+        .content-container {
+            height: calc(100vh - 60px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+        }
+
+        .left-side {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .right-side {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 </head>
-<body>
+<body style="background-color: #FFF8E8;">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" style="color: #2b2c34; font-weight: bold;" href="#">PsychTweets</a>
+    </nav>
+
     {% for message in get_flashed_messages() %}
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <div class="alert alert-warning alert-dismissible fade show" style="position:absolute; top: 60px; left: 0px; right: 0px" role="alert">
         <strong>{{message}}</strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endfor %}
 
-    <form method="post" action="/">
-        <input type="text" name="username" class="form-control" required>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+
+    <div class="content-container">
+        <div class="left-side">
+            <h1 style="color: #2b2c34; font-weight: bold;">Title/Motto</h1>
+            <p style="color: #2b2c34;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium atque doloremque earum enim esse facilis mollitia nihil nostrum nulla optio, porro quisquam sunt suscipit vel veniam! Atque debitis natus ratione!</p>
+        </div>
+
+        <div class="right-side">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <form method="post" action="/">
+                <label for="username" class="h5 card-title">Enter Twitter Username
+                    <input type="text" name="username" class="form-control my-3">
+                </label>
+
+                <div class="d-flex align-items-center my-3">
+                    <hr class="flex-grow-1" style="border: none; border-top: 3px solid #ccc;">
+                    <span class="px-2 fw-bold" style="color: #2b2c34;">or</span>
+                    <hr class="flex-grow-1" style="border: none; border-top: 3px solid #ccc;">
+                </div>
+
+                <label for="text" class="h5 card-title">Enter Text
+                    <input type="text" name="text" class="form-control my-3">
+                </label>
+
+                <button type="submit" class="btn" style="background-color:#6246ea; color: #fffffe;">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+    </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

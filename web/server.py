@@ -11,7 +11,7 @@ def index():
         data = request.form.to_dict()
         username = data['username']
 
-        tweets = scrape(username)
+        tweets = scrape(username) if username != "" else ""
 
         if tweets == "":
             flash("No tweets")
