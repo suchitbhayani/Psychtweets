@@ -3,4 +3,4 @@ model/model_state.pth filter=lfs diff=lfs merge=lfs -text
 *.py linguist-language=Python
 *.html linguist-language=HTML
 *.js linguist-language=JavaScript
-*.ipynb linguist-language=Jupyter Notebook
+*.ipynb linguist-language=Jupyter
