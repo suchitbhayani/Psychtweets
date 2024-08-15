@@ -46,39 +46,39 @@
 
 
     <div class="content-container">
-        <div class="left-side">
+        <div class="left-side" style="height:100%">
             <h1 style="color: #2b2c34; font-weight: bold;">Title/Motto</h1>
             <p style="color: #2b2c34;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium atque doloremque earum enim esse facilis mollitia nihil nostrum nulla optio, porro quisquam sunt suscipit vel veniam! Atque debitis natus ratione!</p>
         </div>
 
-        <div class="right-side">
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <form method="post" action="/">
-                <label for="username" class="h5 card-title">Enter Twitter Username
-                    <input type="text" name="username" class="form-control my-3">
-                </label>
+        <div class="right-side" style="height:100%">
+            <div class="card" style="width: 50%; height:75%">
+                <div class="card-body">
+                    <form method="post" action="/">
+                        <label for="username" class="h5 form-label">Enter Twitter Username</label>
+                        <input id="username" type="text" name="username" class="form-control my-3">
 
-                <div class="d-flex align-items-center my-3">
-                    <hr class="flex-grow-1" style="border: none; border-top: 3px solid #ccc;">
-                    <span class="px-2 fw-bold" style="color: #2b2c34;">or</span>
-                    <hr class="flex-grow-1" style="border: none; border-top: 3px solid #ccc;">
+                        <div class="d-flex align-items-center my-3">
+                            <hr class="flex-grow-1" style="border: none; border-top: 3px solid #ccc;">
+                            <span class="px-2 fw-bold" style="color: #2b2c34;">or</span>
+                            <hr class="flex-grow-1" style="border: none; border-top: 3px solid #ccc;">
+                        </div>
+
+                        <label for="text-box" class="h5 form-label">Enter Text</label>
+                        <div class="d-flex flex-column">
+                            <textarea id="text-box" name="text" class="form-control my-3" style="resize: none; height:25vh" spellcheck="true"></textarea>
+                            <p id="word-count" class="ms-auto" style="color: #2b2c34; font-weight: bold;">0 Words</p>
+                        </div>
+
+                        <button type="submit" class="btn" style="background-color:#6246ea; color: #fffffe;">Submit</button>
+                    </form>
                 </div>
-
-                <label for="text" class="h5 card-title">Enter Text
-                    <input type="text" name="text" class="form-control my-3">
-                </label>
-
-                <button type="submit" class="btn" style="background-color:#6246ea; color: #fffffe;">Submit</button>
-            </form>
+            </div>
         </div>
     </div>
-</div>
-
-    </div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+<script src="{{url_for('static', filename='Scripts/wordcounter.js')}}"></script>
 </body>
 </html>
