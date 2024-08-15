@@ -49,7 +49,7 @@ device = (
 )
 
 model = MBTIPredictor(hidden_size, sequence_length)
-state_dict = torch.load('../model/model_state.pth', map_location = torch.device('cpu'))  # if device is cpu
+state_dict = torch.load('./model_state.pth', map_location = torch.device('cpu'))  # if device is cpu
 model.load_state_dict(state_dict)
 model.to(device)
 model.eval()
@@ -81,7 +81,7 @@ label_mapping = {
 def predict(tweets):
 
     cleaned_text = clean_text(tweets)
-    tokenized = tokenizer(text=cleaned_text, truncation=True, padding=True, max_length=sequence_length, return_tensors='pt')
+    tokenized = tokenizer(text=cleaned_text, truncation=True, padding='max_length', max_length=sequence_length, return_tensors='pt')
 
     input_ids = tokenized['input_ids'].to(device)
     attention_mask = tokenized['attention_mask'].to(device)
