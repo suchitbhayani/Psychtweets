@@ -10,14 +10,18 @@ def index():
     if request.method == 'POST':
         data = request.form.to_dict()
         username = data['username']
+        text = data['text'].strip()
 
         tweets = scrape(username) if username != "" else ""
 
         if tweets == "":
-            flash("No tweets")
+            if text == "":
+                flash("No tweets found for this account. Please enter another username or enter text below.")
+            else:
+                personality_type = model.predict(text)
+                flash(personality_type)
         else:
             personality_type = model.predict(tweets)
-
             flash(personality_type)
 
         return redirect("/")
